@@ -83,7 +83,7 @@
             border-color: rgba(255, 0, 60, 0.6);
         }
 
-        /* Sub-Header Judul Merah Khas layout */
+        /* Sub-Header Judul Merah */
         .section-tag {
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -120,11 +120,22 @@
             margin-bottom: 12px;
         }
 
-        .box-hero .tags-highlight {
+        /* Teks Ketikan Otomatis di Header Utama */
+        .typing-container {
+            font-size: 0.95rem;
             color: #ff3355;
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 20px;
+            min-height: 25px;
+        }
+        .typed-text {
+            border-right: 2px solid #ff3355;
+            padding-right: 4px;
+            animation: blink 0.75s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: #ff3355; }
         }
 
         .hero-buttons {
@@ -196,21 +207,51 @@
             line-height: 1.6;
         }
 
-        /* 4. Tech Stack */
-        .tech-tags {
+        /* 4. Tech Stack Running Text (Marquee Animasi ke Samping) */
+        .box-tech {
+            overflow: hidden;
+        }
+
+        .marquee-wrapper {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            overflow: hidden;
+            width: 100%;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 12px;
+            width: max-content;
+            animation: scroll 15s linear infinite;
+        }
+
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .tech-pill {
             background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 6px 16px;
+            border: 1px solid rgba(255, 0, 60, 0.25);
+            padding: 8px 18px;
             border-radius: 50px;
             font-size: 0.85rem;
             color: #e4e4e7;
             font-weight: 500;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tech-pill i {
+            color: #ff3355;
         }
 
         /* 5. Featured Projects */
@@ -299,7 +340,7 @@
 </head>
 <body>
 
-    <!-- Canvas Efek Naga & Kelopak Bunga -->
+    <!-- Canvas Efek Naga Neon & Kelopak Bunga -->
     <canvas id="effectsCanvas"></canvas>
 
     <!-- Pendaran Latar Belakang -->
@@ -308,7 +349,7 @@
         <div class="shape2"></div>
     </div>
 
-    <!-- Wrapper Layout Bento Sesuai Gambar -->
+    <!-- Wrapper Layout Bento -->
     <div class="bento-wrapper">
 
         <!-- 1. Hero Box -->
@@ -316,7 +357,12 @@
             <span class="badge">MAHASISWA</span>
             <h1>Halo, I'm Silvia!</h1>
             <p class="subtext">Information Systems Student · Future IT Professional</p>
-            <p class="tags-highlight">Cloud Computing • Web Development • Database</p>
+            
+            <!-- Efek Ketik Otomatis -->
+            <div class="typing-container">
+                <span class="typed-text" id="typedOutput"></span>
+            </div>
+
             <div class="hero-buttons">
                 <a href="mailto:mahasiswa@email.com" class="btn-main">Contact Me <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                 <a href="https://github.com" target="_blank" class="btn-secondary">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
@@ -341,17 +387,34 @@
             <p>I'm an Information Management student who enjoys exploring technology and building useful digital solutions.</p>
         </div>
 
-        <!-- 4. Tech Stack -->
+        <!-- 4. Tech Stack (Animasi Meluncur Berjalan ke Samping) -->
         <div class="bento-box box-tech">
             <div class="section-tag">TECH STACK</div>
-            <div class="tech-tags">
-                <span class="tech-pill">HTML</span>
-                <span class="tech-pill">CSS</span>
-                <span class="tech-pill">JavaScript</span>
-                <span class="tech-pill">Python</span>
-                <span class="tech-pill">MySQL</span>
-                <span class="tech-pill">Linux</span>
-                <span class="tech-pill">Graphic Design</span>
+            <div class="marquee-wrapper">
+                <div class="marquee-track">
+                    <span class="tech-pill"><i class="fa-solid fa-cloud"></i> Cloud Computing</span>
+                    <span class="tech-pill"><i class="fa-solid fa-laptop-code"></i> Web Development</span>
+                    <span class="tech-pill"><i class="fa-solid fa-database"></i> Database</span>
+                    <span class="tech-pill"><i class="fa-brands fa-html5"></i> HTML</span>
+                    <span class="tech-pill"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+                    <span class="tech-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
+                    <span class="tech-pill"><i class="fa-brands fa-python"></i> Python</span>
+                    <span class="tech-pill"><i class="fa-solid fa-database"></i> MySQL</span>
+                    <span class="tech-pill"><i class="fa-brands fa-linux"></i> Linux</span>
+                    <span class="tech-pill"><i class="fa-solid fa-palette"></i> Graphic Design</span>
+                    
+                    <!-- Salinan untuk Seamless Endless Loop -->
+                    <span class="tech-pill"><i class="fa-solid fa-cloud"></i> Cloud Computing</span>
+                    <span class="tech-pill"><i class="fa-solid fa-laptop-code"></i> Web Development</span>
+                    <span class="tech-pill"><i class="fa-solid fa-database"></i> Database</span>
+                    <span class="tech-pill"><i class="fa-brands fa-html5"></i> HTML</span>
+                    <span class="tech-pill"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+                    <span class="tech-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
+                    <span class="tech-pill"><i class="fa-brands fa-python"></i> Python</span>
+                    <span class="tech-pill"><i class="fa-solid fa-database"></i> MySQL</span>
+                    <span class="tech-pill"><i class="fa-brands fa-linux"></i> Linux</span>
+                    <span class="tech-pill"><i class="fa-solid fa-palette"></i> Graphic Design</span>
+                </div>
             </div>
         </div>
 
@@ -387,7 +450,7 @@
 
     </div>
 
-    <!-- Script Animation (Naga Neon & Kelopak Bunga) -->
+    <!-- Script Animation (Naga Neon, Kelopak Bunga & Ketikan Otomatis) -->
     <script>
         const canvas = document.getElementById('effectsCanvas');
         const ctx = canvas.getContext('2d');
@@ -515,6 +578,51 @@
             requestAnimationFrame(renderScene);
         }
         renderScene();
+
+        /* --- 3. EFEK KETIKAN OTOMATIS --- */
+        const words = [
+            "Mendalami Teknologi Cloud & Internet...", 
+            "Berfokus pada Desain Grafis & Kreatif...", 
+            "Mengelola Portofolio Informasi Digital..."
+        ];
+        let wordIndex = 0;
+        let timer;
+
+        function typingEffect() {
+            let word = words[wordIndex].split("");
+            var loopTyping = function() {
+                if (word.length > 0) {
+                    document.getElementById('typedOutput').innerHTML += word.shift();
+                } else {
+                    setTimeout(deletingEffect, 2000);
+                    return false;
+                }
+                timer = setTimeout(loopTyping, 80);
+            };
+            loopTyping();
+        }
+
+        function deletingEffect() {
+            let word = words[wordIndex].split("");
+            var loopDeleting = function() {
+                if (word.length > 0) {
+                    word.pop();
+                    document.getElementById('typedOutput').innerHTML = word.join("");
+                } else {
+                    if (words.length > (wordIndex + 1)) {
+                        wordIndex++;
+                    } else {
+                        wordIndex = 0;
+                    }
+                    setTimeout(typingEffect, 500);
+                    return false;
+                }
+                timer = setTimeout(loopDeleting, 40);
+            };
+            loopDeleting();
+        }
+
+        typingEffect();
     </script>
 </body>
 </html>
