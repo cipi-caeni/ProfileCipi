@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Mahasiswa - Bento Grid Edition</title>
+    <title>Profil Mahasiswa - Perfect Bento Grid</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -56,20 +56,20 @@
             100% { transform: translateY(-30px) scale(1.05); }
         }
 
-        /* --- STYLING BENTO GRID CONTAINER --- */
+        /* --- BENTO GRID CONTAINER --- */
         .bento-container {
             position: relative;
             z-index: 10;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
-            max-width: 750px;
+            max-width: 780px;
             width: 100%;
         }
 
         /* Kotak Umum Bento */
         .bento-box {
-            background: rgba(15, 15, 18, 0.75);
+            background: rgba(15, 15, 18, 0.8);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 0, 60, 0.3);
@@ -121,7 +121,7 @@
             color: #a1a1aa;
         }
 
-        /* 2. Kotak Status / Semangat (1 Kolom) */
+        /* 2. Kotak Status Semangat (1 Kolom) */
         .box-status {
             grid-column: span 1;
             display: flex;
@@ -143,19 +143,29 @@
             margin-top: 4px;
         }
 
-        /* 3. Kotak Efek Ketikan & Keahlian (Lebar Penuh / 3 Kolom) */
+        /* 3. Kotak Keahlian & Efek Ketikan (Lebar Penuh / 3 Kolom) */
         .box-skills {
             grid-column: span 3;
         }
 
+        .section-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ff3355;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
         .typing-container {
             font-size: 0.95rem;
-            color: #ff3355;
+            color: #ffffff;
             font-weight: 500;
             min-height: 25px;
             margin-bottom: 16px;
         }
         .typed-text {
+            color: #ff3355;
             border-right: 2px solid #ff3355;
             padding-right: 4px;
             animation: blink 0.75s infinite;
@@ -174,7 +184,7 @@
         .skill-tag {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 10px;
             font-size: 0.8rem;
             color: #f4f4f5;
@@ -211,48 +221,73 @@
             margin-top: 2px;
         }
 
-        /* 5. Kotak Tombol Kontak (Lebar 2 Kolom) */
-        .box-contact {
-            grid-column: span 2;
+        /* 5. Kotak GitHub / Tautan Tambahan (1 Kolom) */
+        .box-github {
+            grid-column: span 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .box-github i {
+            font-size: 1.6rem;
+            color: #ff3355;
+            margin-bottom: 6px;
+        }
+
+        .box-github span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* 6. Kotak Tombol Kontak (1 Kolom) */
+        .box-contact {
+            grid-column: span 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         .btn-contact {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: linear-gradient(135deg, #ff003c, #990000);
             color: white;
             text-decoration: none;
-            padding: 10px 22px;
+            padding: 8px 18px;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.85rem;
-            box-shadow: 0 8px 20px rgba(255, 0, 60, 0.4);
+            font-size: 0.8rem;
+            box-shadow: 0 6px 15px rgba(255, 0, 60, 0.4);
             transition: all 0.3s ease;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .btn-contact:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(255, 0, 60, 0.7);
+            box-shadow: 0 10px 20px rgba(255, 0, 60, 0.7);
             background: linear-gradient(135deg, #ff3355, #ff003c);
         }
 
         .email-text {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #a1a1aa;
         }
 
-        /* Responsif untuk HP / Layar Kecil */
+        /* Responsif HP */
         @media (max-width: 600px) {
             .bento-container {
                 grid-template-columns: 1fr;
             }
-            .box-profile, .box-status, .box-skills, .box-stats, .box-contact {
+            .box-profile, .box-status, .box-skills, .box-stats, .box-github, .box-contact {
                 grid-column: span 1;
             }
         }
@@ -269,24 +304,25 @@
         <div class="shape2"></div>
     </div>
 
-    <!-- Tata Letak Bento Grid -->
+    <!-- Tata Letak Bento Grid Sempurna -->
     <div class="bento-container">
         
-        <!-- Kotak 1: Profil Utama -->
+        <!-- Kotak 1: Profil Utama (Lebar 2) -->
         <div class="bento-box box-profile">
             <span class="badge"><i class="fa-solid fa-graduation-cap"></i> Mahasiswa</span>
             <h1>Nama Silvia</h1>
             <p class="subtitle">Manajemen Informasi Komunikasi</p>
         </div>
 
-        <!-- Kotak 2: Status Semangat -->
+        <!-- Kotak 2: Status Semangat (Lebar 1) -->
         <div class="bento-box box-status">
             <h3>100%</h3>
             <p>Semangat</p>
         </div>
 
-        <!-- Kotak 3: Keahlian & Efek Ketikan -->
+        <!-- Kotak 3: Keahlian & Efek Ketikan (Lebar Penuh 3) -->
         <div class="bento-box box-skills">
+            <div class="section-title">Fokus & Keahlian</div>
             <div class="typing-container">
                 <span class="typed-text" id="typedOutput"></span>
             </div>
@@ -298,16 +334,22 @@
             </div>
         </div>
 
-        <!-- Kotak 4: Statistik Proyek -->
+        <!-- Kotak 4: Statistik Proyek (Lebar 1) -->
         <div class="bento-box box-stats">
             <h3>10+</h3>
             <p>Proyek & Desain</p>
         </div>
 
-        <!-- Kotak 5: Tombol Kontak -->
+        <!-- Kotak 5: GitHub Quick Link (Lebar 1) -->
+        <a href="https://github.com" target="_blank" class="bento-box box-github">
+            <i class="fa-brands fa-github"></i>
+            <span>GitHub Profile</span>
+        </a>
+
+        <!-- Kotak 6: Tombol Kontak (Lebar 1) -->
         <div class="bento-box box-contact">
             <a href="mailto:mahasiswa@email.com" class="btn-contact">
-                <i class="fa-solid fa-paper-plane"></i> Hubungi Saya
+                <i class="fa-solid fa-paper-plane"></i> Hubungi
             </a>
             <span class="email-text">mahasiswa@email.com</span>
         </div>
