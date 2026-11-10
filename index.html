@@ -144,4 +144,219 @@
 
         .skill-tag:hover {
             background: rgba(220, 38, 38, 0.15);
-            border-color: #dc2
+            border-color: #dc2626;
+            color: #fca5a5;
+            transform: translateY(-3px);
+        }
+
+        /* Statistik Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item h3 {
+            font-size: 1.25rem;
+            color: #ef4444;
+            font-weight: 700;
+        }
+
+        .stat-item p {
+            font-size: 0.8rem;
+            color: #a1a1aa;
+            margin-top: 4px;
+        }
+
+        /* Tombol Kontak */
+        .btn-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            color: white;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(220, 38, 38, 0.7);
+        }
+
+        .email-text {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #a1a1aa;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="dragonCanvas"></canvas>
+
+    <div class="bg-shapes">
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+    </div>
+
+    <!-- Kartu Profil Utama -->
+    <div class="card">
+        <span class="badge"><i class="fa-solid fa-graduation-cap"></i> Mahasiswa</span>
+        <h1>Nama Silvia</h1>
+        <p class="subtitle">Manajemen Informasi Komunikasi</p>
+
+        <div class="typing-container">
+            <span class="typed-text" id="typedOutput"></span>
+        </div>
+
+        <div class="skills-container">
+            <div class="skill-tag"><i class="fa-solid fa-cloud"></i> Cloud Computing</div>
+            <div class="skill-tag"><i class="fa-solid fa-laptop-code"></i> Web Tech</div>
+            <div class="skill-tag"><i class="fa-solid fa-database"></i> Basis Data</div>
+            <div class="skill-tag"><i class="fa-solid fa-palette"></i> Desain Grafis</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>10+</h3>
+                <p>Proyek Desain</p>
+            </div>
+            <div class="stat-item">
+                <h3>Cloud</h3>
+                <p>Eksplorasi</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>Semangat</p>
+            </div>
+        </div>
+
+        <a href="mailto:mahasiswa@email.com" class="btn-contact">
+            <i class="fa-solid fa-paper-plane"></i> Hubungi Saya
+        </a>
+        <span class="email-text">mahasiswa@email.com</span>
+    </div>
+
+    <script>
+        /* --- 1. Typing Effect --- */
+        const words = [
+            "Mendalami Teknologi Cloud & Internet...", 
+            "Berfokus pada Desain Grafis & Kreatif...", 
+            "Mengelola Portofolio Informasi Digital..."
+        ];
+        let i = 0;
+        let timer;
+
+        function typingEffect() {
+            let word = words[i].split("");
+            var loopTyping = function() {
+                if (word.length > 0) {
+                    document.getElementById('typedOutput').innerHTML += word.shift();
+                } else {
+                    setTimeout(deletingEffect, 2000);
+                    return false;
+                }
+                timer = setTimeout(loopTyping, 80);
+            };
+            loopTyping();
+        }
+
+        function deletingEffect() {
+            let word = words[i].split("");
+            var loopDeleting = function() {
+                if (word.length > 0) {
+                    word.pop();
+                    document.getElementById('typedOutput').innerHTML = word.join("");
+                } else {
+                    if (words.length > (i + 1)) {
+                        i++;
+                    } else {
+                        i = 0;
+                    }
+                    setTimeout(typingEffect, 500);
+                    return false;
+                }
+                timer = setTimeout(loopDeleting, 40);
+            };
+            loopDeleting();
+        }
+
+        typingEffect();
+
+        /* --- 2. Gambar Naga Ikut Kursor Smooth --- */
+        const canvas = document.getElementById('dragonCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Memuat Gambar Naga Merah Neon Transparan
+        const dragonImg = new Image();
+        dragonImg.src = "https://i.ibb.co/LZ8yD1Z/neon-dragon.png";
+
+        let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        let dragon = { x: window.innerWidth / 2, y: window.innerHeight / 2, angle: 0 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Hitung pergerakan smooth naga mendekati kursor mouse (efek mengambang meliuk)
+            const dx = mouse.x - dragon.x;
+            const dy = mouse.y - dragon.y;
+            
+            dragon.x += dx * 0.05; // Kecepatan ikutan (lembut)
+            dragon.y += dy * 0.05;
+            
+            // Hitung rotasi naga berputar mengikuti arah kursor
+            const targetAngle = Math.atan2(dy, dx);
+            dragon.angle += (targetAngle - dragon.angle) * 0.08;
+
+            if (dragonImg.complete) {
+                ctx.save();
+                ctx.translate(dragon.x, dragon.y);
+                
+                // Rotasi gambar naga secara halus
+                ctx.rotate(dragon.angle + Math.PI / 4);
+
+                // Efek Neon Glow Merah pada Gambar Naga saat Bergerak
+                ctx.shadowBlur = 25;
+                ctx.shadowColor = '#ef4444';
+
+                // Gambar naga utuh (lebar & tinggi disesuaikan proporsional)
+                const imgWidth = 280;
+                const imgHeight = (dragonImg.height / dragonImg.width) * imgWidth;
+                
+                ctx.drawImage(dragonImg, -imgWidth / 2, -imgHeight / 2, imgWidth, imgHeight);
+                ctx.restore();
+            }
+
+            requestAnimationFrame(render);
+        }
+
+        dragonImg.onload = () => {
+            render();
+        };
+        render();
+    </script>
+</body>
+</html>
