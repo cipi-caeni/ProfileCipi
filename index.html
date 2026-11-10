@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Mahasiswa - Dragon & Blossom Edition</title>
+    <title>Profil Mahasiswa - MSI Glowing Dragon</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -203,7 +203,7 @@
 </head>
 <body>
 
-    <!-- Canvas Gabungan Efek (Naga + Bunga) -->
+    <!-- Canvas Gabungan Efek -->
     <canvas id="effectsCanvas"></canvas>
 
     <!-- Elemen Latar Belakang Merah -->
@@ -271,7 +271,7 @@
             mouse.y = e.clientY;
         });
 
-        /* --- 1. LOGIKA ANIMASI KELOPAK BUNGA NEON --- */
+        /* --- 1. KELOPAK BUNGA NEON --- */
         class Petal {
             constructor() {
                 this.reset();
@@ -303,7 +303,7 @@
                 ctx.translate(this.x, this.y);
                 ctx.rotate((this.rotation * Math.PI) / 180);
                 
-                ctx.shadowBlur = 12;
+                ctx.shadowBlur = 10;
                 ctx.shadowColor = '#ff003c';
                 ctx.fillStyle = `rgba(255, 0, 60, ${this.opacity})`;
 
@@ -316,27 +316,24 @@
         }
 
         const petalsArray = [];
-        const numberOfPetals = 35;
-        for (let i = 0; i < numberOfPetals; i++) {
+        for (let i = 0; i < 30; i++) {
             petalsArray.push(new Petal());
             petalsArray[i].y = Math.random() * canvas.height;
         }
 
-        /* --- 2. LOGIKA ANIMASI NAGA NEON --- */
-        const numSegments = 30;
+        /* --- 2. NAGA NEON (KEPALA TEBAL, EKOR TIPIS, GLOW KUAT) --- */
+        const numSegments = 35;
         const dragonSegments = [];
-        const segmentLength = 12;
+        const segmentLength = 10;
 
         for (let i = 0; i < numSegments; i++) {
             dragonSegments.push({ x: mouse.x, y: mouse.y, angle: 0 });
         }
 
         function updateAndDrawDragon() {
-            // Gerakkan kepala naga menuju kursor
-            dragonSegments[0].x += (mouse.x - dragonSegments[0].x) * 0.2;
-            dragonSegments[0].y += (mouse.y - dragonSegments[0].y) * 0.2;
+            dragonSegments[0].x += (mouse.x - dragonSegments[0].x) * 0.25;
+            dragonSegments[0].y += (mouse.y - dragonSegments[0].y) * 0.25;
 
-            // Segmen ekor meliuk
             for (let i = 1; i < numSegments; i++) {
                 const prev = dragonSegments[i - 1];
                 const curr = dragonSegments[i];
@@ -347,29 +344,31 @@
                 curr.y = prev.y - Math.sin(curr.angle) * segmentLength;
             }
 
-            // Gambar Garis Ekor Naga
-            ctx.shadowBlur = 20;
+            // Set Pendaran Cahaya Neon Kuat
+            ctx.shadowBlur = 25;
             ctx.shadowColor = '#ff003c';
-            ctx.strokeStyle = '#ff003c';
+            ctx.strokeStyle = '#ff1a4b';
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
 
-            ctx.beginPath();
-            ctx.moveTo(dragonSegments[0].x, dragonSegments[0].y);
-
-            for (let i = 1; i < numSegments; i++) {
-                ctx.lineWidth = Math.max(1, (numSegments - i) * 0.45);
-                ctx.lineTo(dragonSegments[i].x, dragonSegments[i].y);
+            // Gambar badan naga bertahap dari tebal ke tipis
+            for (let i = 0; i < numSegments - 1; i++) {
+                ctx.beginPath();
+                ctx.moveTo(dragonSegments[i].x, dragonSegments[i].y);
+                ctx.lineTo(dragonSegments[i + 1].x, dragonSegments[i + 1].y);
+                
+                // Kepala (i=0) sangat tebal (ukuran 10), menyusut halus hingga ke ekor (ukuran tipis 0.8)
+                ctx.lineWidth = Math.max(0.8, (numSegments - i) * 0.35);
+                ctx.stroke();
             }
-            ctx.stroke();
 
-            // Mata / Cahaya Kepala Naga
+            // Kepala Naga: Lingkaran/Titik Terang Menyala Besar di Kursor
             const head = dragonSegments[0];
             ctx.fillStyle = '#ffffff';
-            ctx.shadowBlur = 25;
+            ctx.shadowBlur = 30;
             ctx.shadowColor = '#ffffff';
             ctx.beginPath();
-            ctx.arc(head.x, head.y, 4, 0, Math.PI * 2);
+            ctx.arc(head.x, head.y, 6, 0, Math.PI * 2);
             ctx.fill();
         }
 
@@ -377,13 +376,11 @@
         function renderScene() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Render Bunga Jatuh
             for (let i = 0; i < petalsArray.length; i++) {
                 petalsArray[i].update();
                 petalsArray[i].draw();
             }
 
-            // Render Naga Neon
             updateAndDrawDragon();
 
             requestAnimationFrame(renderScene);
