@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Mahasiswa - MSI Edition</title>
-    <!-- Google Fonts & FontAwesome untuk Ikon -->
+    <title>Profil Mahasiswa - MSI Dragon Edition</title>
+    <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -17,24 +17,34 @@
         }
 
         body {
-            /* Tema Hitam Legam ala Gaming Laptop dengan pendaran Merah MSI */
-            background: linear-gradient(135deg, #09090b, #18181b, #270c0c);
+            background: #08080a;
             color: #ffffff;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
+            overflow: hidden;
             position: relative;
         }
 
-        /* Efek Cahaya Latar Belakang Merah Ala LED MSI */
+        /* Canvas Naga di Latar Belakang */
+        #dragonCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Efek Cahaya Ambient Merah */
         .bg-shapes div {
             position: absolute;
             border-radius: 50%;
-            filter: blur(90px);
+            filter: blur(100px);
             z-index: 0;
-            opacity: 0.35;
+            opacity: 0.25;
             animation: float 8s infinite alternate ease-in-out;
         }
         .shape1 { width: 350px; height: 350px; background: #dc2626; top: 10%; left: 15%; }
@@ -45,24 +55,23 @@
             100% { transform: translateY(-30px) scale(1.05); }
         }
 
-        /* Kartu Utama Profil (Glassmorphism dengan Border Merah Tipis) */
+        /* Kartu Profil Utama */
         .card {
             position: relative;
             z-index: 10;
-            background: rgba(18, 18, 20, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(220, 38, 38, 0.3);
+            background: rgba(15, 15, 18, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(220, 38, 38, 0.35);
             max-width: 540px;
             width: 90%;
             margin: 20px;
             padding: 40px 30px;
             border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 20px rgba(220, 38, 38, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(220, 38, 38, 0.2);
             text-align: center;
         }
 
-        /* Badge Mahasiswa Ala MSI */
         .badge {
             display: inline-block;
             background: linear-gradient(135deg, #dc2626, #b91c1c);
@@ -82,7 +91,6 @@
             font-weight: 700;
             margin-bottom: 5px;
             letter-spacing: 0.5px;
-            color: #ffffff;
         }
 
         .subtitle {
@@ -91,7 +99,6 @@
             margin-bottom: 25px;
         }
 
-        /* Efek Ketikan (Typing Text warna Merah Terang) */
         .typing-container {
             font-size: 1.05rem;
             color: #ef4444;
@@ -109,7 +116,6 @@
             50% { border-color: #ef4444; }
         }
 
-        /* Kotak Keahlian (Tags) */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
@@ -119,7 +125,7 @@
         }
 
         .skill-tag {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 8px 16px;
             border-radius: 12px;
@@ -132,13 +138,12 @@
         }
 
         .skill-tag:hover {
-            background: rgba(220, 38, 38, 0.15);
+            background: rgba(220, 38, 38, 0.2);
             border-color: #dc2626;
             color: #fca5a5;
             transform: translateY(-3px);
         }
 
-        /* Statistik / Informasi Angka */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -161,7 +166,6 @@
             margin-top: 4px;
         }
 
-        /* Tombol Kontak Nuansa Merah Gaming */
         .btn-contact {
             display: inline-flex;
             align-items: center;
@@ -193,24 +197,23 @@
 </head>
 <body>
 
-    <!-- Elemen Latar Belakang Pendaran Merah MSI -->
+    <!-- Canvas untuk Animasi Naga Neon -->
+    <canvas id="dragonCanvas"></canvas>
+
     <div class="bg-shapes">
         <div class="shape1"></div>
         <div class="shape2"></div>
     </div>
 
-    <!-- Kartu Profil Utama -->
     <div class="card">
-        <span class="badge"><i class="fa-solid fa-graduation-cap"></i> Mahasiswa</span>
+        <span class="badge"><i class="fa-solid fa-dragon"></i> Mahasiswa</span>
         <h1>call me Silvie</h1>
         <p class="subtitle">Manajemen Informasi Komunikasi</p>
 
-        <!-- Bagian Efek Ketikan Otomatis -->
         <div class="typing-container">
             <span class="typed-text" id="typedOutput"></span>
         </div>
 
-        <!-- Daftar Keahlian / Minat -->
         <div class="skills-container">
             <div class="skill-tag"><i class="fa-solid fa-cloud"></i> Cloud Computing</div>
             <div class="skill-tag"><i class="fa-solid fa-laptop-code"></i> Web Tech</div>
@@ -218,7 +221,6 @@
             <div class="skill-tag"><i class="fa-solid fa-palette"></i> Desain Grafis</div>
         </div>
 
-        <!-- Kotak Statistik Kreatif -->
         <div class="stats-grid">
             <div class="stat-item">
                 <h3>10+</h3>
@@ -234,25 +236,23 @@
             </div>
         </div>
 
-        <!-- Tombol Aksi -->
         <a href="mailto:mahasiswa@email.com" class="btn-contact">
             <i class="fa-solid fa-paper-plane"></i> Hubungi Saya
         </a>
         <span class="email-text">mahasiswa@email.com</span>
     </div>
 
-    <!-- Skrip JavaScript untuk Efek Ketikan Otomatis -->
     <script>
+        // --- SKRIP EFEK KETIKAN ---
         const words = [
             "Mendalami Teknologi Cloud & Internet...", 
             "Berfokus pada Desain Grafis & Kreatif...", 
             "Mengelola Portofolio Informasi Digital..."
         ];
-        let i = 0;
-        let timer;
+        let wordIndex = 0;
 
         function typingEffect() {
-            let word = words[i].split("");
+            let word = words[wordIndex].split("");
             var loopTyping = function() {
                 if (word.length > 0) {
                     document.getElementById('typedOutput').innerHTML += word.shift();
@@ -260,32 +260,115 @@
                     setTimeout(deletingEffect, 2000);
                     return false;
                 }
-                timer = setTimeout(loopTyping, 80);
+                setTimeout(loopTyping, 80);
             };
             loopTyping();
         }
 
         function deletingEffect() {
-            let word = words[i].split("");
+            let word = words[wordIndex].split("");
             var loopDeleting = function() {
                 if (word.length > 0) {
                     word.pop();
                     document.getElementById('typedOutput').innerHTML = word.join("");
                 } else {
-                    if (words.length > (i + 1)) {
-                        i++;
-                    } else {
-                        i = 0;
-                    }
+                    wordIndex = (wordIndex + 1) % words.length;
                     setTimeout(typingEffect, 500);
                     return false;
                 }
-                timer = setTimeout(loopDeleting, 40);
+                setTimeout(loopDeleting, 40);
             };
             loopDeleting();
         }
-
         typingEffect();
+
+        // --- SKRIP ANIMASI NAGA NEON MSI (CURSOR FOLLOWER) ---
+        const canvas = document.getElementById('dragonCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        // Struktur Badan Naga (28 Segmen Ekor Panjang)
+        const numSegments = 28;
+        const dragonSegments = [];
+        const segmentLength = 14;
+
+        for (let i = 0; i < numSegments; i++) {
+            dragonSegments.push({ x: mouse.x, y: mouse.y, angle: 0 });
+        }
+
+        function animateDragon() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Gerakan Kepala Naga mengikuti Mouse
+            dragonSegments[0].x += (mouse.x - dragonSegments[0].x) * 0.15;
+            dragonSegments[0].y += (mouse.y - dragonSegments[0].y) * 0.15;
+
+            // Update posisi segmen badan ke ekor (Physics Trailing)
+            for (let i = 1; i < numSegments; i++) {
+                const prev = dragonSegments[i - 1];
+                const curr = dragonSegments[i];
+                const dx = prev.x - curr.x;
+                const dy = prev.y - curr.y;
+                curr.angle = Math.atan2(dy, dx);
+                curr.x = prev.x - Math.cos(curr.angle) * segmentLength;
+                curr.y = prev.y - Math.sin(curr.angle) * segmentLength;
+            }
+
+            // Render Gambar Badan Naga + Glow Neon
+            for (let i = numSegments - 1; i >= 0; i--) {
+                const seg = dragonSegments[i];
+                const radius = i === 0 ? 12 : Math.max(2, 10 - (i * 0.3));
+
+                ctx.save();
+                ctx.translate(seg.x, seg.y);
+                ctx.rotate(seg.angle);
+
+                // Efek Neon Glow
+                ctx.shadowBlur = 18;
+                ctx.shadowColor = i % 2 === 0 ? '#ff0033' : '#ff4d4d';
+
+                // Gambar Segmen/Sisik Naga
+                ctx.fillStyle = i === 0 ? '#ffffff' : (i % 2 === 0 ? '#dc2626' : '#991b1b');
+                ctx.beginPath();
+                if (i === 0) {
+                    // Kepala Naga
+                    ctx.arc(4, 0, radius, 0, Math.PI * 2);
+                    // Tanduk Naga
+                    ctx.fillStyle = '#ff4d4d';
+                    ctx.fillRect(-8, -10, 8, 3);
+                    ctx.fillRect(-8, 7, 8, 3);
+                } else {
+                    // Segmen Badan
+                    ctx.arc(0, 0, radius, 0, Math.PI * 2);
+                    // Sirip Atas Naga (Spikes)
+                    if (i % 3 === 0) {
+                        ctx.fillStyle = '#ff2442';
+                        ctx.beginPath();
+                        ctx.moveTo(-2, -radius);
+                        ctx.lineTo(4, -radius - 6);
+                        ctx.lineTo(6, -radius);
+                        ctx.fill();
+                    }
+                }
+                ctx.fill();
+                ctx.restore();
+            }
+
+            requestAnimationFrame(animateDragon);
+        }
+        animateDragon();
     </script>
 </body>
 </html>
