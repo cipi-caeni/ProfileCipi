@@ -67,7 +67,7 @@
             gap: 16px;
         }
 
-        /* Style Dasar Kotak Bento */
+        /* Style Dasar Kotak Bento dengan Efek Hover Membesar & Bercahaya */
         .bento-box {
             background: rgba(15, 15, 18, 0.85);
             backdrop-filter: blur(16px);
@@ -76,11 +76,14 @@
             border-radius: 20px;
             padding: 28px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 0, 60, 0.1);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* Efek saat Kursor Berada di Atas Kotak (Membesar & Neon Menyala) */
         .bento-box:hover {
-            border-color: rgba(255, 0, 60, 0.6);
+            transform: translateY(-4px) scale(1.015);
+            border-color: rgba(255, 0, 60, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 0, 60, 0.35);
         }
 
         /* Sub-Header Judul Merah */
