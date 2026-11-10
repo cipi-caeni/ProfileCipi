@@ -117,22 +117,41 @@
         .box-hero .subtext {
             color: #a1a1aa;
             font-size: 0.95rem;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
-        /* Teks Ketikan Otomatis di Header Utama */
-        .typing-container {
-            font-size: 0.95rem;
-            color: #ff3355;
-            font-weight: 600;
+        /* Kotak Transparan ala Input Field untuk Efek Ketikan */
+        .fake-input-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 20px;
-            min-height: 25px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
         }
+
+        .fake-input-box i {
+            color: #ff3355;
+            font-size: 0.95rem;
+        }
+
+        .typing-container {
+            font-size: 0.9rem;
+            color: #ff3355;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
         .typed-text {
             border-right: 2px solid #ff3355;
             padding-right: 4px;
             animation: blink 0.75s infinite;
         }
+
         @keyframes blink {
             0%, 100% { border-color: transparent; }
             50% { border-color: #ff3355; }
@@ -207,7 +226,7 @@
             line-height: 1.6;
         }
 
-        /* 4. Tech Stack Running Text (Marquee Animasi ke Samping) */
+        /* 4. Tech Stack Running Text */
         .box-tech {
             overflow: hidden;
         }
@@ -291,7 +310,7 @@
             font-weight: 500;
         }
 
-        /* 6. Let's Connect */
+        /* 6. Let's Connect (Instagram & Email) */
         .box-connect {
             display: flex;
             justify-content: space-between;
@@ -300,7 +319,7 @@
 
         .connect-links {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             font-size: 0.95rem;
             font-weight: 600;
         }
@@ -308,6 +327,9 @@
         .connect-links a {
             color: #ffffff;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             transition: color 0.3s ease;
         }
 
@@ -335,6 +357,10 @@
             .box-hero h1 {
                 font-size: 1.7rem;
             }
+            .connect-links {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
     </style>
 </head>
@@ -358,14 +384,17 @@
             <h1>Halo, I'm Silvia!</h1>
             <p class="subtext">Information Systems Student · Future IT Professional</p>
             
-            <!-- Efek Ketik Otomatis -->
-            <div class="typing-container">
-                <span class="typed-text" id="typedOutput"></span>
+            <!-- Kolom Transparan Ala Input Field dengan Efek Ketik Otomatis -->
+            <div class="fake-input-box">
+                <i class="fa-solid fa-terminal"></i>
+                <div class="typing-container">
+                    <span class="typed-text" id="typedOutput"></span>
+                </div>
             </div>
 
             <div class="hero-buttons">
-                <a href="mailto:mahasiswa@email.com" class="btn-main">Contact Me <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                <a href="https://github.com" target="_blank" class="btn-secondary">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                <a href="mailto:silvie@gmail.com" class="btn-main">Contact Me <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                <a href="https://instagram.com/silvie_handaeni" target="_blank" class="btn-secondary">Instagram <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </div>
         </div>
 
@@ -387,7 +416,7 @@
             <p>I'm an Information Management student who enjoys exploring technology and building useful digital solutions.</p>
         </div>
 
-        <!-- 4. Tech Stack (Animasi Meluncur Berjalan ke Samping) -->
+        <!-- 4. Tech Stack (Animasi Meluncur ke Samping) -->
         <div class="bento-box box-tech">
             <div class="section-tag">TECH STACK</div>
             <div class="marquee-wrapper">
@@ -433,14 +462,13 @@
             </div>
         </div>
 
-        <!-- 6. Let's Connect -->
+        <!-- 6. Let's Connect (Instagram & Email) -->
         <div class="bento-box box-connect">
             <div>
                 <div class="section-tag" style="margin-bottom: 6px;">LET'S CONNECT</div>
                 <div class="connect-links">
-                    <a href="https://github.com" target="_blank">GitHub</a> • 
-                    <a href="#" target="_blank">LinkedIn</a> • 
-                    <a href="mailto:mahasiswa@email.com">Email</a>
+                    <a href="https://instagram.com/silvie_handaeni" target="_blank"><i class="fa-brands fa-instagram" style="color: #ff3355;"></i> @silvie_handaeni</a>
+                    <a href="mailto:silvie@gmail.com"><i class="fa-solid fa-envelope" style="color: #ff3355;"></i> silvie@gmail.com</a>
                 </div>
             </div>
             <div class="arrow-circle">
