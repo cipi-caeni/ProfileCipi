@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Mahasiswa - Perfect Bento Grid</title>
+    <title>Profil Mahasiswa - Silvia</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -25,12 +25,12 @@
             align-items: center;
             overflow-x: hidden;
             position: relative;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
-        /* Canvas untuk Naga & Kelopak Bunga */
+        /* Canvas Efek Naga Neon & Kelopak Bunga */
         #effectsCanvas {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -39,256 +39,260 @@
             pointer-events: none;
         }
 
-        /* Elemen Pendaran Merah di Background */
+        /* Pendaran Latar Belakang Merah MSI */
         .bg-shapes div {
-            position: absolute;
+            position: fixed;
             border-radius: 50%;
             filter: blur(120px);
             z-index: 0;
             opacity: 0.25;
             animation: float 8s infinite alternate ease-in-out;
         }
-        .shape1 { width: 400px; height: 400px; background: #ff003c; top: 5%; left: 10%; }
-        .shape2 { width: 350px; height: 350px; background: #990000; bottom: 5%; right: 10%; animation-delay: 3s; }
+        .shape1 { width: 450px; height: 450px; background: #ff003c; top: 5%; left: 10%; }
+        .shape2 { width: 400px; height: 400px; background: #990000; bottom: 5%; right: 10%; animation-delay: 3s; }
 
         @keyframes float {
             0% { transform: translateY(0px) scale(1); }
             100% { transform: translateY(-30px) scale(1.05); }
         }
 
-        /* --- BENTO GRID CONTAINER --- */
-        .bento-container {
+        /* Container Bento Layout */
+        .bento-wrapper {
             position: relative;
             z-index: 10;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            max-width: 780px;
             width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        /* Kotak Umum Bento */
+        /* Style Dasar Kotak Bento */
         .bento-box {
-            background: rgba(15, 15, 18, 0.8);
+            background: rgba(15, 15, 18, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 0, 60, 0.3);
+            border: 1px solid rgba(255, 0, 60, 0.35);
             border-radius: 20px;
-            padding: 24px;
+            padding: 28px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 0, 60, 0.1);
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .bento-box:hover {
             border-color: rgba(255, 0, 60, 0.6);
-            transform: translateY(-3px);
         }
 
-        /* 1. Kotak Profil Utama (Lebar 2 Kolom) */
-        .box-profile {
-            grid-column: span 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        /* Sub-Header Judul Merah Khas layout */
+        .section-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ff3355;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
 
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #ff003c, #b30000);
-            color: white;
+        /* 1. Header Utama */
+        .box-hero .badge {
+            display: inline-block;
+            background: rgba(255, 0, 60, 0.2);
+            border: 1px solid rgba(255, 0, 60, 0.5);
+            color: #ff3355;
             font-size: 0.7rem;
-            font-weight: 600;
-            padding: 5px 14px;
+            font-weight: 700;
+            padding: 4px 12px;
             border-radius: 50px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            width: fit-content;
             margin-bottom: 12px;
-            box-shadow: 0 4px 12px rgba(255, 0, 60, 0.4);
         }
 
-        .box-profile h1 {
-            font-size: 1.8rem;
+        .box-hero h1 {
+            font-size: 2.2rem;
             font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 4px;
-        }
-
-        .box-profile .subtitle {
-            font-size: 0.9rem;
-            color: #a1a1aa;
-        }
-
-        /* 2. Kotak Status Semangat (1 Kolom) */
-        .box-status {
-            grid-column: span 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .box-status h3 {
-            font-size: 1.8rem;
-            color: #ff3355;
-            font-weight: 700;
-        }
-
-        .box-status p {
-            font-size: 0.8rem;
-            color: #a1a1aa;
-            margin-top: 4px;
-        }
-
-        /* 3. Kotak Keahlian & Efek Ketikan (Lebar Penuh / 3 Kolom) */
-        .box-skills {
-            grid-column: span 3;
-        }
-
-        .section-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #ff3355;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .typing-container {
-            font-size: 0.95rem;
-            color: #ffffff;
-            font-weight: 500;
-            min-height: 25px;
-            margin-bottom: 16px;
-        }
-        .typed-text {
-            color: #ff3355;
-            border-right: 2px solid #ff3355;
-            padding-right: 4px;
-            animation: blink 0.75s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { border-color: transparent; }
-            50% { border-color: #ff3355; }
-        }
-
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .skill-tag {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 6px 14px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            color: #f4f4f5;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background: rgba(255, 0, 60, 0.15);
-            border-color: #ff003c;
-            color: #ff99aa;
-        }
-
-        /* 4. Kotak Statistik Proyek (1 Kolom) */
-        .box-stats {
-            grid-column: span 1;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .box-stats h3 {
-            font-size: 1.4rem;
-            color: #ff3355;
-            font-weight: 700;
-        }
-
-        .box-stats p {
-            font-size: 0.75rem;
-            color: #a1a1aa;
-            margin-top: 2px;
-        }
-
-        /* 5. Kotak GitHub / Tautan Tambahan (1 Kolom) */
-        .box-github {
-            grid-column: span 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .box-github i {
-            font-size: 1.6rem;
-            color: #ff3355;
             margin-bottom: 6px;
         }
 
-        .box-github span {
+        .box-hero .subtext {
+            color: #a1a1aa;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .box-hero .tags-highlight {
+            color: #ff3355;
             font-size: 0.85rem;
-            font-weight: 600;
-            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 20px;
         }
 
-        /* 6. Kotak Tombol Kontak (1 Kolom) */
-        .box-contact {
-            grid-column: span 1;
+        .hero-buttons {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            gap: 10px;
         }
 
-        .btn-contact {
+        .btn-main {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, #ff003c, #990000);
+            background: #ff003c;
             color: white;
             text-decoration: none;
             padding: 8px 18px;
-            border-radius: 50px;
+            border-radius: 8px;
+            font-size: 0.85rem;
             font-weight: 600;
-            font-size: 0.8rem;
-            box-shadow: 0 6px 15px rgba(255, 0, 60, 0.4);
             transition: all 0.3s ease;
+        }
+
+        .btn-main:hover {
+            background: #ff3355;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.6);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* 2. Baris Angka (Grid 2 Kolom) */
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .box-stat-item h2 {
+            font-size: 2.2rem;
+            color: #ff3355;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .box-stat-item p {
+            color: #a1a1aa;
+            font-size: 0.85rem;
+        }
+
+        /* 3. About Me */
+        .box-about p {
+            color: #d4d4d8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 4. Tech Stack */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-pill {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #e4e4e7;
+            font-weight: 500;
+        }
+
+        /* 5. Featured Projects */
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .project-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .project-card:hover {
+            background: rgba(255, 0, 60, 0.05);
+            border-color: rgba(255, 0, 60, 0.3);
+        }
+
+        .project-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
             margin-bottom: 4px;
         }
 
-        .btn-contact:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 0, 60, 0.7);
-            background: linear-gradient(135deg, #ff3355, #ff003c);
-        }
-
-        .email-text {
-            font-size: 0.7rem;
+        .project-card p {
+            font-size: 0.85rem;
             color: #a1a1aa;
         }
 
-        /* Responsif HP */
+        .project-card a {
+            color: #ff3355;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* 6. Let's Connect */
+        .box-connect {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .connect-links {
+            display: flex;
+            gap: 15px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .connect-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .connect-links a:hover {
+            color: #ff3355;
+        }
+
+        .arrow-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Mobile */
         @media (max-width: 600px) {
-            .bento-container {
+            .stats-row {
                 grid-template-columns: 1fr;
             }
-            .box-profile, .box-status, .box-skills, .box-stats, .box-github, .box-contact {
-                grid-column: span 1;
+            .box-hero h1 {
+                font-size: 1.7rem;
             }
         }
     </style>
@@ -304,58 +308,86 @@
         <div class="shape2"></div>
     </div>
 
-    <!-- Tata Letak Bento Grid Sempurna -->
-    <div class="bento-container">
-        
-        <!-- Kotak 1: Profil Utama (Lebar 2) -->
-        <div class="bento-box box-profile">
-            <span class="badge"><i class="fa-solid fa-graduation-cap"></i> Mahasiswa</span>
-            <h1>Nama Silvia</h1>
-            <p class="subtitle">Manajemen Informasi Komunikasi</p>
-        </div>
+    <!-- Wrapper Layout Bento Sesuai Gambar -->
+    <div class="bento-wrapper">
 
-        <!-- Kotak 2: Status Semangat (Lebar 1) -->
-        <div class="bento-box box-status">
-            <h3>100%</h3>
-            <p>Semangat</p>
-        </div>
-
-        <!-- Kotak 3: Keahlian & Efek Ketikan (Lebar Penuh 3) -->
-        <div class="bento-box box-skills">
-            <div class="section-title">Fokus & Keahlian</div>
-            <div class="typing-container">
-                <span class="typed-text" id="typedOutput"></span>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-tag"><i class="fa-solid fa-cloud"></i> Cloud Computing</div>
-                <div class="skill-tag"><i class="fa-solid fa-laptop-code"></i> Web Tech</div>
-                <div class="skill-tag"><i class="fa-solid fa-database"></i> Basis Data</div>
-                <div class="skill-tag"><i class="fa-solid fa-palette"></i> Desain Grafis</div>
+        <!-- 1. Hero Box -->
+        <div class="bento-box box-hero">
+            <span class="badge">MAHASISWA</span>
+            <h1>Halo, I'm Silvia!</h1>
+            <p class="subtext">Information Systems Student · Future IT Professional</p>
+            <p class="tags-highlight">Cloud Computing • Web Development • Database</p>
+            <div class="hero-buttons">
+                <a href="mailto:mahasiswa@email.com" class="btn-main">Contact Me <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                <a href="https://github.com" target="_blank" class="btn-secondary">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </div>
         </div>
 
-        <!-- Kotak 4: Statistik Proyek (Lebar 1) -->
-        <div class="bento-box box-stats">
-            <h3>10+</h3>
-            <p>Proyek & Desain</p>
+        <!-- 2. Stats Row (2 Kolom) -->
+        <div class="stats-row">
+            <div class="bento-box box-stat-item">
+                <h2>03+</h2>
+                <p>Featured Projects</p>
+            </div>
+            <div class="bento-box box-stat-item">
+                <h2>04+</h2>
+                <p>Tech Skills</p>
+            </div>
         </div>
 
-        <!-- Kotak 5: GitHub Quick Link (Lebar 1) -->
-        <a href="https://github.com" target="_blank" class="bento-box box-github">
-            <i class="fa-brands fa-github"></i>
-            <span>GitHub Profile</span>
-        </a>
+        <!-- 3. About Me -->
+        <div class="bento-box box-about">
+            <div class="section-tag">ABOUT ME</div>
+            <p>I'm an Information Management student who enjoys exploring technology and building useful digital solutions.</p>
+        </div>
 
-        <!-- Kotak 6: Tombol Kontak (Lebar 1) -->
-        <div class="bento-box box-contact">
-            <a href="mailto:mahasiswa@email.com" class="btn-contact">
-                <i class="fa-solid fa-paper-plane"></i> Hubungi
-            </a>
-            <span class="email-text">mahasiswa@email.com</span>
+        <!-- 4. Tech Stack -->
+        <div class="bento-box box-tech">
+            <div class="section-tag">TECH STACK</div>
+            <div class="tech-tags">
+                <span class="tech-pill">HTML</span>
+                <span class="tech-pill">CSS</span>
+                <span class="tech-pill">JavaScript</span>
+                <span class="tech-pill">Python</span>
+                <span class="tech-pill">MySQL</span>
+                <span class="tech-pill">Linux</span>
+                <span class="tech-pill">Graphic Design</span>
+            </div>
+        </div>
+
+        <!-- 5. Featured Projects -->
+        <div class="bento-box box-projects">
+            <div class="section-tag">FEATURED PROJECTS</div>
+            <div class="projects-list">
+                <div class="project-card">
+                    <h3>1. Bananania Workflow Analysis</h3>
+                    <p>Order to shipping workflow study for marketplace entity · Cloud & Systems · <a href="#">View Project ↗</a></p>
+                </div>
+                <div class="project-card">
+                    <h3>2. Digital Design & Branding Portfolio</h3>
+                    <p>Creative promotional layouts & visual assets showcase · Graphic Design · <a href="#">View Project ↗</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Let's Connect -->
+        <div class="bento-box box-connect">
+            <div>
+                <div class="section-tag" style="margin-bottom: 6px;">LET'S CONNECT</div>
+                <div class="connect-links">
+                    <a href="https://github.com" target="_blank">GitHub</a> • 
+                    <a href="#" target="_blank">LinkedIn</a> • 
+                    <a href="mailto:mahasiswa@email.com">Email</a>
+                </div>
+            </div>
+            <div class="arrow-circle">
+                <i class="fa-solid fa-arrow-down"></i>
+            </div>
         </div>
 
     </div>
 
+    <!-- Script Animation (Naga Neon & Kelopak Bunga) -->
     <script>
         const canvas = document.getElementById('effectsCanvas');
         const ctx = canvas.getContext('2d');
@@ -373,7 +405,7 @@
             mouse.y = e.clientY;
         });
 
-        /* --- KELOPAK BUNGA NEON --- */
+        /* --- 1. ANIMASI KELOPAK BUNGA NEON --- */
         class Petal {
             constructor() {
                 this.reset();
@@ -418,12 +450,12 @@
         }
 
         const petalsArray = [];
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < 30; i++) {
             petalsArray.push(new Petal());
             petalsArray[i].y = Math.random() * canvas.height;
         }
 
-        /* --- NAGA NEON MENGIKUTI KURSOR --- */
+        /* --- 2. ANIMASI NAGA NEON MENGIKUTI KURSOR --- */
         const numSegments = 35;
         const dragonSegments = [];
         const segmentLength = 10;
@@ -469,6 +501,7 @@
             ctx.fill();
         }
 
+        /* --- LOOP RENDER UTAMA --- */
         function renderScene() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -482,51 +515,6 @@
             requestAnimationFrame(renderScene);
         }
         renderScene();
-
-        /* --- EFEK KETIKAN --- */
-        const words = [
-            "Mendalami Teknologi Cloud & Internet...", 
-            "Berfokus pada Desain Grafis & Kreatif...", 
-            "Mengelola Portofolio Informasi Digital..."
-        ];
-        let i = 0;
-        let timer;
-
-        function typingEffect() {
-            let word = words[i].split("");
-            var loopTyping = function() {
-                if (word.length > 0) {
-                    document.getElementById('typedOutput').innerHTML += word.shift();
-                } else {
-                    setTimeout(deletingEffect, 2000);
-                    return false;
-                }
-                timer = setTimeout(loopTyping, 80);
-            };
-            loopTyping();
-        }
-
-        function deletingEffect() {
-            let word = words[i].split("");
-            var loopDeleting = function() {
-                if (word.length > 0) {
-                    word.pop();
-                    document.getElementById('typedOutput').innerHTML = word.join("");
-                } else {
-                    if (words.length > (i + 1)) {
-                        i++;
-                    } else {
-                        i = 0;
-                    }
-                    setTimeout(typingEffect, 500);
-                    return false;
-                }
-                timer = setTimeout(loopDeleting, 40);
-            };
-            loopDeleting();
-        }
-
-        typingEffect();
     </script>
 </body>
 </html>
