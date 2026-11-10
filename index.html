@@ -243,7 +243,7 @@
             display: flex;
             gap: 12px;
             width: max-content;
-            animation: scroll 15s linear infinite;
+            animation: scroll 20s linear infinite;
         }
 
         .marquee-track:hover {
@@ -310,31 +310,33 @@
             font-weight: 500;
         }
 
-        /* 6. Let's Connect (Instagram & Email) */
+        /* 6. Find Me (Platform & Portofolio) */
         .box-connect {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .connect-links {
+        .find-me-grid {
             display: flex;
-            gap: 20px;
-            font-size: 0.95rem;
+            flex-wrap: wrap;
+            gap: 14px 20px;
+            font-size: 0.88rem;
             font-weight: 600;
         }
 
-        .connect-links a {
+        .find-me-grid a {
             color: #ffffff;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .connect-links a:hover {
+        .find-me-grid a:hover {
             color: #ff3355;
+            transform: translateY(-2px);
         }
 
         .arrow-circle {
@@ -347,6 +349,7 @@
             align-items: center;
             color: #ffffff;
             font-size: 0.9rem;
+            flex-shrink: 0;
         }
 
         /* Responsive Mobile */
@@ -357,9 +360,9 @@
             .box-hero h1 {
                 font-size: 1.7rem;
             }
-            .connect-links {
+            .find-me-grid {
                 flex-direction: column;
-                gap: 8px;
+                gap: 10px;
             }
         }
     </style>
@@ -381,7 +384,7 @@
         <!-- 1. Hero Box -->
         <div class="bento-box box-hero">
             <span class="badge">MAHASISWA</span>
-            <h1>Halo, I'm Silvia!</h1>
+            <h1>Spasiba, call me Silvie!</h1>
             <p class="subtext">Information Systems Student · Future IT Professional</p>
             
             <!-- Kolom Transparan Ala Input Field dengan Efek Ketik Otomatis -->
@@ -416,33 +419,39 @@
             <p>I'm an Information Management student who enjoys exploring technology and building useful digital solutions.</p>
         </div>
 
-        <!-- 4. Tech Stack (Animasi Meluncur ke Samping) -->
+        <!-- 4. Tech Stack (Lengkap IT & Skill Kreatif) -->
         <div class="bento-box box-tech">
-            <div class="section-tag">TECH STACK</div>
+            <div class="section-tag">TECH & CREATIVE STACK</div>
             <div class="marquee-wrapper">
                 <div class="marquee-track">
                     <span class="tech-pill"><i class="fa-solid fa-cloud"></i> Cloud Computing</span>
                     <span class="tech-pill"><i class="fa-solid fa-laptop-code"></i> Web Development</span>
                     <span class="tech-pill"><i class="fa-solid fa-database"></i> Database</span>
+                    <span class="tech-pill"><i class="fa-solid fa-palette"></i> Desain Grafis</span>
+                    <span class="tech-pill"><i class="fa-solid fa-camera"></i> Fotografi</span>
+                    <span class="tech-pill"><i class="fa-solid fa-video"></i> Videografi</span>
+                    <span class="tech-pill"><i class="fa-solid fa-pen-nib"></i> Copywriting</span>
                     <span class="tech-pill"><i class="fa-brands fa-html5"></i> HTML</span>
                     <span class="tech-pill"><i class="fa-brands fa-css3-alt"></i> CSS</span>
                     <span class="tech-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
                     <span class="tech-pill"><i class="fa-brands fa-python"></i> Python</span>
                     <span class="tech-pill"><i class="fa-solid fa-database"></i> MySQL</span>
                     <span class="tech-pill"><i class="fa-brands fa-linux"></i> Linux</span>
-                    <span class="tech-pill"><i class="fa-solid fa-palette"></i> Graphic Design</span>
                     
-                    <!-- Salinan untuk Seamless Endless Loop -->
+                    <!-- Salinan untuk Loop Mulus -->
                     <span class="tech-pill"><i class="fa-solid fa-cloud"></i> Cloud Computing</span>
                     <span class="tech-pill"><i class="fa-solid fa-laptop-code"></i> Web Development</span>
                     <span class="tech-pill"><i class="fa-solid fa-database"></i> Database</span>
+                    <span class="tech-pill"><i class="fa-solid fa-palette"></i> Desain Grafis</span>
+                    <span class="tech-pill"><i class="fa-solid fa-camera"></i> Fotografi</span>
+                    <span class="tech-pill"><i class="fa-solid fa-video"></i> Videografi</span>
+                    <span class="tech-pill"><i class="fa-solid fa-pen-nib"></i> Copywriting</span>
                     <span class="tech-pill"><i class="fa-brands fa-html5"></i> HTML</span>
                     <span class="tech-pill"><i class="fa-brands fa-css3-alt"></i> CSS</span>
                     <span class="tech-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
                     <span class="tech-pill"><i class="fa-brands fa-python"></i> Python</span>
                     <span class="tech-pill"><i class="fa-solid fa-database"></i> MySQL</span>
                     <span class="tech-pill"><i class="fa-brands fa-linux"></i> Linux</span>
-                    <span class="tech-pill"><i class="fa-solid fa-palette"></i> Graphic Design</span>
                 </div>
             </div>
         </div>
@@ -462,13 +471,17 @@
             </div>
         </div>
 
-        <!-- 6. Let's Connect (Instagram & Email) -->
+        <!-- 6. Find Me (Platform Kreatif & Sosial Media) -->
         <div class="bento-box box-connect">
             <div>
-                <div class="section-tag" style="margin-bottom: 6px;">LET'S CONNECT</div>
-                <div class="connect-links">
-                    <a href="https://instagram.com/silvie_handaeni" target="_blank"><i class="fa-brands fa-instagram" style="color: #ff3355;"></i> @silvie_handaeni</a>
-                    <a href="mailto:silvie@gmail.com"><i class="fa-solid fa-envelope" style="color: #ff3355;"></i> silvie@gmail.com</a>
+                <div class="section-tag" style="margin-bottom: 10px;">FIND ME</div>
+                <div class="find-me-grid">
+                    <a href="#" target="_blank"><i class="fa-solid fa-image" style="color: #ff3355;"></i> Pngtree</a>
+                    <a href="#" target="_blank"><i class="fa-solid fa-layer-group" style="color: #ff3355;"></i> Adobe Stock Contributor</a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-youtube" style="color: #ff3355;"></i> YouTube</a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-tiktok" style="color: #ff3355;"></i> TikTok</a>
+                    <a href="https://instagram.com/silvie_handaeni" target="_blank"><i class="fa-brands fa-instagram" style="color: #ff3355;"></i> Instagram</a>
+                    <a href="#" target="_blank"><i class="fa-solid fa-camera-retro" style="color: #ff3355;"></i> Shutterstock</a>
                 </div>
             </div>
             <div class="arrow-circle">
