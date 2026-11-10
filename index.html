@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Mahasiswa - Neon Blossom Edition</title>
+    <title>Profil Mahasiswa - Dragon & Blossom Edition</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -27,8 +27,8 @@
             position: relative;
         }
 
-        /* Canvas Kelopak Bunga Neon */
-        #petalCanvas {
+        /* Canvas untuk Naga & Kelopak Bunga */
+        #effectsCanvas {
             position: absolute;
             top: 0;
             left: 0;
@@ -203,8 +203,8 @@
 </head>
 <body>
 
-    <!-- Canvas Tempat Kelopak Bunga Neon Berjatuhan -->
-    <canvas id="petalCanvas"></canvas>
+    <!-- Canvas Gabungan Efek (Naga + Bunga) -->
+    <canvas id="effectsCanvas"></canvas>
 
     <!-- Elemen Latar Belakang Merah -->
     <div class="bg-shapes">
@@ -255,8 +255,7 @@
     </div>
 
     <script>
-        /* --- SKRIP KELOPAK BUNGA NEON BERJATUHAN --- */
-        const canvas = document.getElementById('petalCanvas');
+        const canvas = document.getElementById('effectsCanvas');
         const ctx = canvas.getContext('2d');
 
         function resizeCanvas() {
@@ -266,12 +265,13 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        const mouse = { x: null, y: null };
+        const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
         });
 
+        /* --- 1. LOGIKA ANIMASI KELOPAK BUNGA NEON --- */
         class Petal {
             constructor() {
                 this.reset();
@@ -280,7 +280,7 @@
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = -20;
-                this.size = Math.random() * 8 + 6;
+                this.size = Math.random() * 7 + 5;
                 this.speedY = Math.random() * 1.5 + 0.8;
                 this.speedX = Math.random() * 1 - 0.5;
                 this.rotation = Math.random() * 360;
@@ -293,18 +293,6 @@
                 this.x += this.speedX + Math.sin(this.y * 0.02) * 0.5;
                 this.rotation += this.rotationSpeed;
 
-                // Interaksi dengan kursor mouse (kelopak menghindar perlahan saat didekati)
-                if (mouse.x !== null && mouse.y !== null) {
-                    let dx = this.x - mouse.x;
-                    let dy = this.y - mouse.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) {
-                        this.x += dx * 0.03;
-                        this.y += dy * 0.03;
-                    }
-                }
-
-                // Jika kelopak jatuh sampai bawah layar, reset ke atas lagi
                 if (this.y > canvas.height + 20) {
                     this.reset();
                 }
@@ -315,12 +303,10 @@
                 ctx.translate(this.x, this.y);
                 ctx.rotate((this.rotation * Math.PI) / 180);
                 
-                // Efek Neon Merah Menyala
-                ctx.shadowBlur = 15;
+                ctx.shadowBlur = 12;
                 ctx.shadowColor = '#ff003c';
                 ctx.fillStyle = `rgba(255, 0, 60, ${this.opacity})`;
 
-                // Bentuk kelopak bunga oval
                 ctx.beginPath();
                 ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
                 ctx.fill();
@@ -330,25 +316,79 @@
         }
 
         const petalsArray = [];
-        const numberOfPetals = 40;
-
+        const numberOfPetals = 35;
         for (let i = 0; i < numberOfPetals; i++) {
             petalsArray.push(new Petal());
-            // Beri posisi awal acak agar langsung menyebar saat halaman dibuka
             petalsArray[i].y = Math.random() * canvas.height;
         }
 
-        function animatePetals() {
+        /* --- 2. LOGIKA ANIMASI NAGA NEON --- */
+        const numSegments = 30;
+        const dragonSegments = [];
+        const segmentLength = 12;
+
+        for (let i = 0; i < numSegments; i++) {
+            dragonSegments.push({ x: mouse.x, y: mouse.y, angle: 0 });
+        }
+
+        function updateAndDrawDragon() {
+            // Gerakkan kepala naga menuju kursor
+            dragonSegments[0].x += (mouse.x - dragonSegments[0].x) * 0.2;
+            dragonSegments[0].y += (mouse.y - dragonSegments[0].y) * 0.2;
+
+            // Segmen ekor meliuk
+            for (let i = 1; i < numSegments; i++) {
+                const prev = dragonSegments[i - 1];
+                const curr = dragonSegments[i];
+                const dx = prev.x - curr.x;
+                const dy = prev.y - curr.y;
+                curr.angle = Math.atan2(dy, dx);
+                curr.x = prev.x - Math.cos(curr.angle) * segmentLength;
+                curr.y = prev.y - Math.sin(curr.angle) * segmentLength;
+            }
+
+            // Gambar Garis Ekor Naga
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = '#ff003c';
+            ctx.strokeStyle = '#ff003c';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            ctx.beginPath();
+            ctx.moveTo(dragonSegments[0].x, dragonSegments[0].y);
+
+            for (let i = 1; i < numSegments; i++) {
+                ctx.lineWidth = Math.max(1, (numSegments - i) * 0.45);
+                ctx.lineTo(dragonSegments[i].x, dragonSegments[i].y);
+            }
+            ctx.stroke();
+
+            // Mata / Cahaya Kepala Naga
+            const head = dragonSegments[0];
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowBlur = 25;
+            ctx.shadowColor = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(head.x, head.y, 4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        /* --- LOOP RENDER UTAMA --- */
+        function renderScene() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+            // Render Bunga Jatuh
             for (let i = 0; i < petalsArray.length; i++) {
                 petalsArray[i].update();
                 petalsArray[i].draw();
             }
 
-            requestAnimationFrame(animatePetals);
+            // Render Naga Neon
+            updateAndDrawDragon();
+
+            requestAnimationFrame(renderScene);
         }
-        animatePetals();
+        renderScene();
 
         /* --- SKRIP EFEK KETIKAN --- */
         const words = [
