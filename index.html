@@ -79,7 +79,7 @@
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Efek saat Kursor Berada di Atas Kotak (Membesar & Neon Menyala) */
+        /* Efek saat Kursor Berada di Atas Kotak */
         .bento-box:hover {
             transform: translateY(-4px) scale(1.015);
             border-color: rgba(255, 0, 60, 0.8);
@@ -222,11 +222,71 @@
             font-size: 0.85rem;
         }
 
-        /* 3. About Me */
+        /* 3. About Me dengan Expandable Table (Accordion) */
         .box-about p {
             color: #d4d4d8;
             font-size: 0.95rem;
             line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .toggle-details-btn {
+            background: transparent;
+            border: none;
+            color: #ff3355;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s ease;
+            outline: none;
+        }
+
+        .toggle-details-btn:hover {
+            color: #ff6680;
+            text-decoration: underline;
+        }
+
+        .about-details-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, margin-top 0.3s ease;
+        }
+
+        .about-details-content.open {
+            max-height: 300px;
+            margin-top: 15px;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 0, 60, 0.2);
+        }
+
+        .info-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .info-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .info-table td.label {
+            color: #ff3355;
+            font-weight: 600;
+            width: 40%;
+        }
+
+        .info-table td.val {
+            color: #e4e4e7;
         }
 
         /* 4. Tech Stack Running Text */
@@ -276,7 +336,7 @@
             color: #ff3355;
         }
 
-        /* 5. Featured Projects */
+        /* 5. Featured Projects & Pop-up Gallery Trigger */
         .projects-list {
             display: flex;
             flex-direction: column;
@@ -288,12 +348,14 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 12px;
             padding: 16px;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .project-card:hover {
-            background: rgba(255, 0, 60, 0.05);
-            border-color: rgba(255, 0, 60, 0.3);
+            background: rgba(255, 0, 60, 0.08);
+            border-color: rgba(255, 0, 60, 0.4);
+            transform: translateY(-2px);
         }
 
         .project-card h3 {
@@ -307,10 +369,13 @@
             color: #a1a1aa;
         }
 
-        .project-card a {
+        .project-card .link-text {
             color: #ff3355;
             text-decoration: none;
             font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         /* 6. Find Me (Platform & Portofolio) */
@@ -353,6 +418,113 @@
             color: #ffffff;
             font-size: 0.9rem;
             flex-shrink: 0;
+        }
+
+        /* --- GALERI POP-UP OVERLAY (MODAL) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 5, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background: rgba(15, 15, 18, 0.95);
+            border: 1px solid rgba(255, 0, 60, 0.5);
+            border-radius: 24px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 30px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 0, 60, 0.3);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 0, 60, 0.2);
+            padding-bottom: 12px;
+        }
+
+        .modal-header h2 {
+            font-size: 1.4rem;
+            color: #ffffff;
+        }
+
+        .close-btn {
+            background: rgba(255, 0, 60, 0.2);
+            border: 1px solid rgba(255, 0, 60, 0.5);
+            color: #ff3355;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #ff003c;
+            color: #ffffff;
+            transform: rotate(90deg);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            border-color: #ff003c;
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(255, 0, 60, 0.25);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item .caption {
+            padding: 10px 12px;
+            font-size: 0.8rem;
+            color: #a1a1aa;
+            text-align: center;
         }
 
         /* Responsive Mobile */
@@ -416,10 +588,40 @@
             </div>
         </div>
 
-        <!-- 3. About Me -->
+        <!-- 3. About Me (Dengan Tombol Unfold Details) -->
         <div class="bento-box box-about">
             <div class="section-tag">ABOUT ME</div>
             <p>I'm an Information Management student who enjoys exploring technology and building useful digital solutions.</p>
+            
+            <button class="toggle-details-btn" id="toggleDetailsBtn" onclick="toggleAboutDetails()">
+                <i class="fa-solid fa-chevron-down" id="toggleIcon"></i> <span id="toggleText">[ Unfold Details ]</span>
+            </button>
+
+            <!-- Tabel Informasi Detail Akademik (Bahasa Inggris) -->
+            <div class="about-details-content" id="aboutDetailsContent">
+                <table class="info-table">
+                    <tr>
+                        <td class="label">University</td>
+                        <td class="val">STMM (Sekolah Tinggi Multimedia)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Study Program</td>
+                        <td class="val">Information & Communication Management</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Entry Year</td>
+                        <td class="val">2025</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Education Status</td>
+                        <td class="val">Active Student (3rd Semester)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Fields of Interest</td>
+                        <td class="val">Eager to learn everything (Open to all domains)</td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
         <!-- 4. Tech Stack (Lengkap IT & Skill Kreatif) -->
@@ -459,27 +661,30 @@
             </div>
         </div>
 
-        <!-- 5. Featured Projects -->
+        <!-- 5. Featured Projects (Dapat Membuka Galeri Overlay) -->
         <div class="bento-box box-projects">
             <div class="section-tag">FEATURED PROJECTS</div>
             <div class="projects-list">
-                <div class="project-card">
-                    <h3>1. Marketplace Workflow Analysis</h3>
-                    <p>Order to shipping workflow study for marketplace entity · Cloud & Systems · <a href="#">View Project ↗</a></p>
+                <!-- Project 1 (Bisa Diklik Untuk Membuka Galeri PNG) -->
+                <div class="project-card" onclick="openGalleryModal()">
+                    <h3>1. Graphic Design & Illustration Portfolio</h3>
+                    <p>Creative promotional layouts & visual assets showcase · Graphic Design · <span class="link-text">View Gallery ↗</span></p>
                 </div>
+
+                <!-- Project 2 -->
                 <div class="project-card">
-                    <h3>2. Digital Design & Branding Portfolio</h3>
-                    <p>Creative promotional layouts & visual assets showcase · Graphic Design · <a href="#">View Project ↗</a></p>
+                    <h3>2. Bananania Workflow Analysis</h3>
+                    <p>Order to shipping workflow study for marketplace entity · Cloud & Systems · <span class="link-text">View Project ↗</span></p>
                 </div>
             </div>
         </div>
 
-        <!-- 6. Find Me (Platform Kreatif & Sosial Media) -->
+        <!-- 6. Find Me -->
         <div class="bento-box box-connect">
             <div>
                 <div class="section-tag" style="margin-bottom: 10px;">FIND ME</div>
                 <div class="find-me-grid">
-                    <a href="#" target="_blank"><i class="fa-solid fa-image" style="color: #ff3355;"></i> Pngtree</a>
+                    <a href="https://pngtree.com/han-daeni_60640034?type=1" target="_blank"><i class="fa-solid fa-image" style="color: #ff3355;"></i> Pngtree</a>
                     <a href="#" target="_blank"><i class="fa-solid fa-layer-group" style="color: #ff3355;"></i> Adobe Stock Contributor</a>
                     <a href="#" target="_blank"><i class="fa-brands fa-youtube" style="color: #ff3355;"></i> YouTube</a>
                     <a href="#" target="_blank"><i class="fa-brands fa-tiktok" style="color: #ff3355;"></i> TikTok</a>
@@ -492,6 +697,38 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- POP-UP MODAL GALERI GAMBAR PNG -->
+    <div class="modal-overlay" id="galleryModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Graphic Design & Illustration Gallery</h2>
+                <button class="close-btn" onclick="closeGalleryModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="gallery-grid">
+                <!-- Slot Gambar 1 (Ganti src="gambar1.png" sesuai nama file gambar PNG kamu nanti) -->
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/151518/ff003c?text=PNG+Design+1" alt="Design 1">
+                    <div class="caption">Illustration Art #1</div>
+                </div>
+                <!-- Slot Gambar 2 -->
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/151518/ff003c?text=PNG+Design+2" alt="Design 2">
+                    <div class="caption">Poster & Layout Design</div>
+                </div>
+                <!-- Slot Gambar 3 -->
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/151518/ff003c?text=PNG+Design+3" alt="Design 3">
+                    <div class="caption">Vector & Digital Asset</div>
+                </div>
+                <!-- Slot Gambar 4 -->
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/151518/ff003c?text=PNG+Design+4" alt="Design 4">
+                    <div class="caption">Branding Showcase</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Script Animation (Naga Neon, Kelopak Bunga & Ketikan Otomatis) -->
@@ -667,6 +904,32 @@
         }
 
         typingEffect();
+
+        /* --- 4. KONTROL INTERAKTIF ACCORDION ABOUT ME --- */
+        function toggleAboutDetails() {
+            const content = document.getElementById('aboutDetailsContent');
+            const textSpan = document.getElementById('toggleText');
+            const icon = document.getElementById('toggleIcon');
+
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                textSpan.innerText = '[ Unfold Details ]';
+                icon.className = 'fa-solid fa-chevron-down';
+            } else {
+                content.classList.add('open');
+                textSpan.innerText = '[ Fold Details ]';
+                icon.className = 'fa-solid fa-chevron-up';
+            }
+        }
+
+        /* --- 5. KONTROL POP-UP MODAL GALERI --- */
+        function openGalleryModal() {
+            document.getElementById('galleryModal').classList.add('active');
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('galleryModal').classList.remove('active');
+        }
     </script>
 </body>
 </html>
